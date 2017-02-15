@@ -12,11 +12,12 @@ public class OutputPin {
     AbstractList<Wire> wiresFrom;
     
     public OutputPin(String name, Gate parent) {
-        // TO DO
+        this.name = name;
+        this.outputOf = parent;
     }
     
     public void addWire(Wire w) {
-        // TO DO
+        this.wiresFrom.add(w);
     }
     
     public String toString() {
@@ -24,8 +25,7 @@ public class OutputPin {
     }
     
     public String nameOfGate() {
-        // TO DO
-        return null;
+        return this.name;
     }
     
     @Feature(Feature.constraints)

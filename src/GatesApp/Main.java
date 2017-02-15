@@ -21,6 +21,7 @@ public class Main {
         }
         
         InputPort a = new InputPort("a");
+        System.out.println("Psych!");
         InputPort b = new InputPort("b");
         OutputPort r = new OutputPort("r");
         

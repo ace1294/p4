@@ -13,11 +13,12 @@ public class InputPin {
     Wire wireFrom; // only from one source
     
     public InputPin(String name, Gate parent) {
-        // TO DO
+        this.name = name;
+        this.inputOf = parent;
     }
     
     public void addWire(Wire w) {
-         // TO DO
+         this.wireFrom = w;
     }
     
     public String toString() {

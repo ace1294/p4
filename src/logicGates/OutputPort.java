@@ -9,12 +9,17 @@ public class OutputPort extends Gate implements Printable {
 
     public OutputPort(String name) {
         super(name);
-        // TO DO
+        this.i1 = new InputPin("i1", this);
+        
+        this.inputs.put("i1", this.i1);
+        
+        if (Feature.tables) {
+            table.add(this);
+        }
     }
     
     public InputPin getInput() { 
-        // TO DO
-        return null;
+        return this.i1;
     }
     
     @Feature(Feature.tables) 

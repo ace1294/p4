@@ -10,7 +10,17 @@ public class And extends Gate implements Printable {
 
     public And(String name) {
         super(name);
-        // TO DO
+        this.i1 = new InputPin("i1", this);
+        this.i2 = new InputPin("i2", this);
+        this.o = new OutputPin("o", this);
+        
+        this.inputs.put("i1", this.i1);
+        this.inputs.put("i2", this.i2);
+        this.outputs.put("o", this.o);
+        
+        if (Feature.tables) {
+            table.add(this);
+        }
     }
     
     @Feature(Feature.tables) 
