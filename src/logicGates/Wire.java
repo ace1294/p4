@@ -11,6 +11,10 @@ public class Wire implements Printable {
     public Wire( OutputPin o, InputPin i ) {
         this.o = o;
         this.i = i;
+        
+        if (Feature.tables) {
+            table.add(this);
+        }
     }
     
     public Wire( InputPort o, Gate i, String name) {
@@ -47,7 +51,7 @@ public class Wire implements Printable {
     }
     
     public void print() {
-        System.out.printf("wire('%s','%s').\n", i, o);
+        System.out.printf("wire('%s','%s').\n", o, i);
     }
     
     @Feature(Feature.constraints)

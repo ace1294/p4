@@ -27,7 +27,3 @@ inputPort(b,'b->o').
 
 table(outputPort,[name,"inputPin"]).
 outputPort(r,'i1->r').
-
-Model is correct: true
-
-Evaluation of circuit is Correct!
