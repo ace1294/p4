@@ -11,7 +11,6 @@ public class Main {
      */
     public static void main(String[] args) {
         aCircuit();
-        System.out.println("Done!");
     }
     
     public static void aCircuit() {
@@ -21,7 +20,6 @@ public class Main {
         }
         
         InputPort a = new InputPort("a");
-        System.out.println("Psych!");
         InputPort b = new InputPort("b");
         OutputPort r = new OutputPort("r");
         

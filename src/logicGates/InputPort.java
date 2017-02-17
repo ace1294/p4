@@ -16,7 +16,6 @@ public class InputPort extends Gate implements Printable {
         if (Feature.tables) {
             table.add(this);
         }
-        System.out.println("Psych!");
     }
     
     public OutputPin getOutput() {
@@ -28,12 +27,11 @@ public class InputPort extends Gate implements Printable {
     static LinkedList<InputPort> table;
     
     public static void resetTable() {
-        // TO DO
+        table = new LinkedList<>();
     }
     
     public static LinkedList<InputPort> getTable() { 
-        // TO DO
-        return null;
+        return table;
     }
     
     public void printTableHeader() {
@@ -41,7 +39,7 @@ public class InputPort extends Gate implements Printable {
     }
     
     public void print() {
-        // TO DO
+        System.out.printf("inputPort(%s,'%s').\n", name, o);
     }
     
     @Feature(Feature.eval)   /* for evaluation */

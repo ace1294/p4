@@ -26,12 +26,11 @@ public class Not extends Gate implements Printable {
     static LinkedList<Not> table;
     
     public static void resetTable() {
-        // TO DO
+        table = new LinkedList<>();
     }
     
     public static LinkedList<Not> getTable() { 
-        // TO DO
-        return null;
+        return table;
     }
     
     public void printTableHeader() {
@@ -39,7 +38,7 @@ public class Not extends Gate implements Printable {
     }
     
     public void print() {
-        // TO DO
+        System.out.printf("not(%s,'%s','%s').\n", name, i1, o);
     }
     
     @Feature(Feature.eval)   /* for logic diagram evaluation */

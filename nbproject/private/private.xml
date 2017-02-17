@@ -3,7 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/don/Documents/NetBeansProjects/Gates_2/src/logicGates/And.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/Not.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/Pins/OutputPin.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/And.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/Or.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/Wire.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/OutputPort.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/Gate.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/GatesApp/Feature.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/logicGates/InputPort.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/GatesApp/Main.java</file>
+            <file>file:/Users/Jason/Documents/Personal/Texas/Senior/cs373s/p4/Gates_2/src/Pins/InputPin.java</file>
         </group>
     </open-files>
 </project-private>
