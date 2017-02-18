@@ -51,9 +51,9 @@ public abstract class Gate {
         if (t.isEmpty())
             return;
         t.getFirst().printTableHeader();
-        for (G g : t) {
+        t.forEach((g) -> {
             g.print();
-        }
+        });
     }
 
     @Feature(Feature.constraints)
@@ -64,30 +64,148 @@ public abstract class Gate {
     }
 
     public boolean allInputsUsed() {
-        // TO DO
+        // Do Not need to implement this
         return true;
     }
 
     public boolean allOutputsUsed() {
-        // TO DO
+        // Do not need to use this
         return true;
     }
 
     public static <G extends Gate> boolean verify(String label, LinkedList<G> table) {
-	// TO DO
-	// evaluate the following constraints
-	// 1. every gate of type G has a unique name
-	// 2. every gate of type G has all of its inputs used (see above)
-	// 3. every gate of type G has all of its outputs used (see above)
-	// 4. any constraint you might think that is particular to
-	//    gates of type G, evaluate it see extra() above
-
+        // 1. every gate of type G has a unique name
+        table.stream().filter(x->{
+            return table.stream().filter(y -> y.name.equals(x.name)).count()>1;
+        }).forEach(t-> new ValueAlreadySet(label));
+        
+        // 2. every gate of type G has all of its inputs used (see above)
+        boolean allInputsUsedBool = true;
+        LinkedList<Wire> wireTable = Wire.getTable();        
+        HashMap<InputPin, Boolean> inputPins = new HashMap<>();
+        for (Gate gate: table) {
+            inputPins.clear();
+            gate.inputs.values().forEach((input) -> {
+                inputPins.put(input, false);
+            });
+            
+            wireTable.forEach((wire) -> {
+                inputPins.keySet().forEach((input) -> {
+                    if (input.equals(wire.i)) {
+                        inputPins.replace(input, true);
+                    }
+                });
+            });
+            
+            for(Boolean inputHasWire: inputPins.values()) {
+                if (!inputHasWire) {
+                    allInputsUsedBool = false;
+                }
+            }
+        }
+        if (!allInputsUsedBool) return false;
+        
+        // 3. every gate of type G has all of its outputs used (see above)
+        boolean allOutputsUsedBool = true;       
+        HashMap<OutputPin, Boolean> outputPins = new HashMap<>();
+        for (Gate gate: table) {
+            outputPins.clear();
+            gate.outputs.values().forEach((output) -> {
+                outputPins.put(output, false);
+            });
+            
+            wireTable.forEach((wire) -> {
+                outputPins.keySet().forEach((output) -> {
+                    if (output.equals(wire.o)) {
+                        outputPins.replace(output, true);
+                    }
+                });
+            });
+            
+            for(Boolean outputHasWire: outputPins.values()) {
+                if (!outputHasWire) {
+                    allOutputsUsedBool = false;
+                }
+            }
+        }
+        
+        return allOutputsUsedBool;
+    }
+    
+    public static <G extends Gate> boolean verifyInputsConnectToOutputs(LinkedList<G> table) {
+        // 5. Every InputPin of every Gate must be connected via a wire to an OutputPin.
+        // Remember: every InputPort is a Gate with precisely 1 OutputPin.
+        
+        LinkedList<Wire> wireTable = Wire.getTable();
+        for (Gate g1: table) {
+            // If input port continue because it doesn't have any inputs
+            if (g1.inputs.values().isEmpty()) continue;
+            for (InputPin input: g1.inputs.values()) {
+                boolean inputConnectedToOutput = false;
+                for (Wire wire: wireTable) {
+                    if (input.equals(wire.i)) {
+                        for (Gate g2: table) {
+                            for (OutputPin output: g2.outputs.values()) {
+                                if (output.equals(wire.o)) {
+                                    inputConnectedToOutput = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!inputConnectedToOutput) return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    public static <G extends Gate> boolean verifyOutputsConnectToInputs(LinkedList<G> table) {
+        // Every OutputPin is connected to an InputPin of a Gate.  
+        // Remember: every OutputPort is a Gate with precisely one InputPin.
+        
+        LinkedList<Wire> wireTable = Wire.getTable();
+        for (Gate g1: table) {
+            // If output port continue because it doesn't have any outputs
+            if (g1.outputs.values().isEmpty()) continue;
+            for (OutputPin output: g1.outputs.values()) {
+                boolean outputConnectedToOutput = false;
+                for (Wire wire: wireTable) {
+                    if (output.equals(wire.o)) {
+                        for (Gate g2: table) {
+                            for (InputPin input: g2.inputs.values()) {
+                                if (input.equals(wire.i)) {
+                                    outputConnectedToOutput = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!outputConnectedToOutput) return false;
+            }
+        }
+        
         return true;
     }
 
     public static boolean verify() {
-        // TO DO
-        return false;
+        boolean andTableVerified = verify("and",And.getTable());
+        boolean orTableVerified = verify("or",Or.getTable());
+        boolean notTableVerified = verify("not",Not.getTable());
+        boolean inputTableVerified = verify("inputPort",InputPort.getTable());
+        boolean outputTableVerified = verify("outputPort",OutputPort.getTable());
+        
+        LinkedList<Gate> allTables = new LinkedList<>();
+        allTables.addAll(And.getTable());
+        allTables.addAll(Or.getTable());
+        allTables.addAll(Not.getTable());
+        allTables.addAll(InputPort.getTable());
+        allTables.addAll(OutputPort.getTable());
+        
+        boolean inputsConnectedToOuputsVerified = verifyInputsConnectToOutputs(allTables);
+        boolean outputsConnectedToInputsVerified = verifyOutputsConnectToInputs(allTables);
+        
+        return (andTableVerified && orTableVerified && notTableVerified && inputTableVerified && outputTableVerified && inputsConnectedToOuputsVerified && outputsConnectedToInputsVerified);
     }
 
     @Feature(Feature.eval)

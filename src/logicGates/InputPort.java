@@ -47,11 +47,10 @@ public class InputPort extends Gate implements Printable {
     Value value = Value.UNKNOWN;
         
     public void setValue(Value v) {
-        // TO DO
+        this.value = v;
     }
     
     public Value getValue() {
-        // TO DO
-        return null;
+        return this.value;
     }
 }

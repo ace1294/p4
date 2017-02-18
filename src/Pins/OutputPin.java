@@ -14,6 +14,7 @@ public class OutputPin {
     public OutputPin(String name, Gate parent) {
         this.name = name;
         this.outputOf = parent;
+        this.wiresFrom = new ArrayList<>();
     }
     
     public void addWire(Wire w) {
@@ -30,15 +31,13 @@ public class OutputPin {
     
     @Feature(Feature.constraints)
     
-    public boolean isUsed() {
-        // TO DO
-        return false;
+    public boolean isUsed() {        
+        return !this.wiresFrom.isEmpty();
     }
     
     @Feature(Feature.eval)
     
     public Value getValue() {
-        // TO DO
-        return null;
+        return this.outputOf.getValue();
     }
 }

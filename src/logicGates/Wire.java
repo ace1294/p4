@@ -12,6 +12,9 @@ public class Wire implements Printable {
         this.o = o;
         this.i = i;
         
+        this.i.addWire(this);
+        this.o.addWire(this);
+        
         if (Feature.tables) {
             table.add(this);
         }
@@ -57,19 +60,12 @@ public class Wire implements Printable {
     @Feature(Feature.constraints)
     
     public boolean isUsed() {
-        // TO DO
-        return false;
-    }
-    
-    public static boolean verify() {
-        // TO DO
-        return false;
+        return this.o.isUsed() && this.i.isUsed();
     }
     
     @Feature(Feature.eval)
     
     public Value getValue() {
-        // TO DO
-        return Value.UNKNOWN;
+        return this.o.getValue();
     }
 }

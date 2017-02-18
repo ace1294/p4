@@ -28,18 +28,16 @@ public class InputPin {
     @Feature(Feature.constraints)
     
     public boolean isUsed() {
-        // TO DO
-        return false;
+        return (wireFrom != null);
     }
     
     public String nameOfGate() {
-         // TO DO
-         return null;
+         return inputOf.name;
     }
     
     @Feature(Feature.eval)    /*  this is for circuit execution */
     
     public Value getValue() {
-        return Value.UNKNOWN;
+        return this.wireFrom.getValue();
     }
 }
